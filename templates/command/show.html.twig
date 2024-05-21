@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Command</h1>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ command.id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ command.status }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ command.createdAt ? command.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Delivered At</th>
+                <td>{{ command.delivredAt ? command.delivredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ command.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ command.total }}</td>
+            </tr>
+            <tr>
+                <th>For User</th>
+                <td>{{ command.forUser.username }}</td>
+            </tr>
+
+            <tr>
+                <th>To product</th>
+                <td>
+                    <a href="{{ path('app_product_show', {'id': command.product.id}) }}">{{ command.product.name }}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        {% if app.user and app.user.username == command.forUser.username %}
+            {{ include('command/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+{% endblock %}
